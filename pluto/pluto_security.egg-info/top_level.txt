@@ -1,3 +1,0 @@
-analyzers
-providers
-reporters
