@@ -189,7 +189,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **0xSaikat**
 - Website: [hackbit.org](https://hackbit.org)
-- GitHub: [@yourusername](https://github.com/0xsaikat)
+- GitHub: [@0xsaikat](https://github.com/0xsaikat)
 
 ## 🙏 Acknowledgments
 
