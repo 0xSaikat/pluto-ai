@@ -1,0 +1,130 @@
+Metadata-Version: 2.4
+Name: pluto-security
+Version: 1.0.0
+Summary: AI-powered code security analyzer
+Home-page: https://github.com/yourusername/pluto
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: click>=8.0.0
+Requires-Dist: anthropic>=0.18.0
+Requires-Dist: openai>=1.0.0
+Requires-Dist: requests>=2.28.0
+Requires-Dist: GitPython>=3.1.0
+Requires-Dist: reportlab>=4.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Pluto - AI-Powered Code Security Analyzer
+
+Pluto is a powerful CLI tool that uses AI to detect security vulnerabilities in your code.
+
+## Features
+
+- 🤖 Multiple AI providers: Claude, OpenAI, Ollama (local)
+- 📁 Analyze files, directories, or GitHub repositories
+- 📊 Multiple report formats: Terminal, PDF, JSON, Markdown
+- 🔒 Privacy-first with local Ollama support
+- 🎯 Severity filtering (CRITICAL, HIGH, MEDIUM, LOW)
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/pluto.git
+cd pluto
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install Pluto
+pip install -e .
+```
+
+## Setup
+
+### For Claude (Recommended)
+```bash
+export ANTHROPIC_API_KEY='your-api-key-here'
+```
+
+### For OpenAI
+```bash
+export OPENAI_API_KEY='your-api-key-here'
+```
+
+### For Ollama (Local, Free)
+```bash
+# Install Ollama from https://ollama.ai
+ollama pull codellama
+ollama serve
+```
+
+## Usage
+
+### Analyze a single file
+```bash
+pluto scan -code app.py
+```
+
+### Analyze entire directory
+```bash
+pluto scan -dir ./src --report pdf --output security_report
+```
+
+### Analyze GitHub repository
+```bash
+pluto scan -git https://github.com/user/repo --provider claude
+```
+
+### Use local AI (Ollama)
+```bash
+pluto scan -code app.py --provider ollama --model codellama
+```
+
+### Filter by severity
+```bash
+pluto scan -dir ./src --min-severity HIGH
+```
+
+### Generate different report formats
+```bash
+pluto scan -code app.py --report json --output results
+pluto scan -code app.py --report pdf --output security_audit
+pluto scan -code app.py --report markdown --output findings
+```
+
+## Supported Languages
+
+Python, JavaScript, TypeScript, Java, C/C++, Go, Rust, PHP, Ruby, Swift, Kotlin
+
+## Security Checks
+
+- SQL Injection
+- XSS (Cross-Site Scripting)
+- Authentication/Authorization flaws
+- Hardcoded secrets
+- Insecure cryptography
+- Path traversal
+- Command injection
+- CSRF vulnerabilities
+- And more...
+
+## Contributing
+
+Contributions welcome! Please open an issue or submit a pull request.
+
+## License
+
+MIT License
