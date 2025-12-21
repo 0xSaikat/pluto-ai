@@ -193,3 +193,15 @@ Pluto is a security analysis tool intended for educational and legitimate securi
 <div align="center">
 Made with 🛡️ by 0xSaikat | <a href="https://hackbit.org">hackbit.org</a>
 </div>
+
+---
+
+<h6 align="center">By the Hackers for the Hackers!</h6>
+
+<div align="center">
+  <a href="https://github.com/0xSaikat"><img src="https://img.icons8.com/material-outlined/30/808080/github.png" alt="GitHub"></a>
+  <a href="https://twitter.com/0xSaikat"><img src="https://img.icons8.com/material-outlined/30/808080/twitter.png" alt="Twitter"></a>
+  <a href="https://www.linkedin.com/in/0xsaikat/"><img src="https://img.icons8.com/material-outlined/30/808080/linkedin.png" alt="LinkedIn"></a>
+  <a href="https://findme.hackbit.org"><img src="https://img.icons8.com/material-outlined/30/808080/internet.png" alt="Web"></a>
+</div>
+
