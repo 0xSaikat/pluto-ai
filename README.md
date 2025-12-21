@@ -2,19 +2,7 @@
 
 <div align="center">
 
-```
-╭─────[By 0xSaikat]───────────────────────────────────╮
-│                                                     │
-│         ____  __      __                            │
-│        / __ \/ /_  __/ /_____                       │
-│       / /_/ / / / / / __/ __ \                      │
-│      / ____/ / /_/ / /_/ /_/ /                      │
-│     /_/   /_/\__,_/\__/\____/   V-1.0               │
-│                                                     │
-│     AI-Powered Code Security Analyzer               │
-│                                                     │
-╰─────────────────────────────────[hackbit.org]───────╯
-```
+![logo](assets/cover.png)
 
 [![PyPI version](https://badge.fury.io/py/pluto-security-scanner.svg)](https://badge.fury.io/py/pluto-security-scanner)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -30,7 +18,7 @@
 
 ## 🚀 Features
 
-- 🤖 **Multiple AI Providers**: Claude, OpenAI, Ollama (local)
+- 💻 **Multiple AI Providers**: Claude, OpenAI, Ollama (local)
 - 📁 **Flexible Input**: Analyze files, directories, or GitHub repositories
 - 📊 **Multiple Report Formats**: Terminal, PDF, JSON, Markdown
 - 🔒 **Privacy-First**: Local analysis with Ollama support
@@ -191,7 +179,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Website: [hackbit.org](https://hackbit.org)
 - GitHub: [@0xsaikat](https://github.com/0xsaikat)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Powered by Claude (Anthropic), OpenAI, and Ollama
 - Built with ❤️ for the security community
