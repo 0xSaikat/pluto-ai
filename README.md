@@ -190,12 +190,6 @@ Pluto is a security analysis tool intended for educational and legitimate securi
 
 ---
 
-<div align="center">
-Made with 🛡️ by 0xSaikat | <a href="https://hackbit.org">hackbit.org</a>
-</div>
-
----
-
 <h6 align="center">By the Hackers for the Hackers!</h6>
 
 <div align="center">
