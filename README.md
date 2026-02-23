@@ -19,7 +19,7 @@
 
 ## ✨ What's New in v1.1.0
 
-- 🎨 **Beautiful Orange Theme** - Claude-inspired copper/orange color scheme
+- 🎨 **Beautiful Orange Theme** - Orange color scheme
 - 📊 **Real-time Progress Bar** - See exactly what AI is analyzing with live updates
 - ⏱️ **Time Tracking** - Know how long each scan takes
 - 🎭 **Animated Analysis Stages** - 10 different stages shown in real-time
