@@ -255,7 +255,7 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 ## 👨‍💻 Author
 
 **0xSaikat**
-- Website: [hackbit.org](https://hackbit.org)
+- Website: [pluto.hackbit.org](https://pluto.hackbit.org)
 - GitHub: [@0xSaikat](https://github.com/0xSaikat)
 - Twitter: [@0xSaikat](https://twitter.com/0xSaikat)
 
@@ -281,7 +281,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <a href="https://github.com/0xSaikat"><img src="https://img.shields.io/badge/GitHub-0xSaikat-181717?style=for-the-badge&logo=github" alt="GitHub"></a>
 <a href="https://twitter.com/0xSaikat"><img src="https://img.shields.io/badge/Twitter-0xSaikat-1DA1F2?style=for-the-badge&logo=twitter" alt="Twitter"></a>
-<a href="https://findme.hackbit.org"><img src="https://img.shields.io/badge/Web-hackbit.org-FF6B35?style=for-the-badge&logo=safari" alt="Web"></a>
+<a href="https://pluto.hackbit.org"><img src="https://img.shields.io/badge/Web-hackbit.org-FF6B35?style=for-the-badge&logo=safari" alt="Web"></a>
 
 **⭐ Star us on GitHub — it helps!**
 
