@@ -259,7 +259,7 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 - GitHub: [@0xSaikat](https://github.com/0xSaikat)
 - Twitter: [@0xSaikat](https://twitter.com/0xSaikat)
 
-## 🙏 Acknowledgments
+## 🎖️ Acknowledgments
 
 - Powered by Claude (Anthropic), OpenAI, and Ollama
 - Built with ❤️ for the security community
