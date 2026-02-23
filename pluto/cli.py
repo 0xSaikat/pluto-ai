@@ -18,7 +18,7 @@ def print_banner():
 
 @click.group(invoke_without_command=True)
 @click.pass_context
-@click.version_option(version='1.0.0')
+@click.version_option(version='1.1.0')
 @click.option('--no-banner', is_flag=True, help='Skip animated banner')
 @click.option('--reset', is_flag=True, help='Reset configuration')
 def cli(ctx, no_banner, reset):
