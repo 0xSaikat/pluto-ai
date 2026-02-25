@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='pluto-ai',  
-    version='1.1.0',
+    version='1.2.0',
     author='0xSaikat',
     author_email='contact@hackbit.org',
     description='AI-powered code security vulnerability scanner',
