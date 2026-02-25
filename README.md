@@ -17,14 +17,22 @@
 
 ---
 
-## ✨ What's New in v1.1.0
+## ✨ What's New in v1.2.0
 
-- 🎨 **Beautiful Orange Theme** - Orange color scheme
-- 📊 **Real-time Progress Bar** - See exactly what AI is analyzing with live updates
-- ⏱️ **Time Tracking** - Know how long each scan takes
-- 🎭 **Animated Analysis Stages** - 10 different stages shown in real-time
-- 🛡️ **Enhanced Setup Wizard** - Beautiful interactive first-time configuration
-- 💡 **Smart Error Messages** - Helpful troubleshooting tips when issues occur
+- 🛡️ **Package Security Scanning** - Scan packages before installation
+- 📦 **Safe Installation** - `pluto pip install` and `pluto npm install`
+- 🔍 **AI-Powered Analysis** - Detect malicious code in packages
+- ⚠️ **Risk Assessment** - Warning for dangerous packages
+- 📊 **Security Reports** - Detailed vulnerability breakdown
+
+### 📦 New Commands
+```bash
+# Safely install Python packages
+pluto pip install requests
+
+# Safely install NPM packages
+pluto npm install express
+```
 
 ## 🚀 Features
 
