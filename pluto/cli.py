@@ -18,7 +18,7 @@ def print_banner():
 
 @click.group(invoke_without_command=True)
 @click.pass_context
-@click.version_option(version='1.1.0')
+@click.version_option(version='1.2.0')
 @click.option('--no-banner', is_flag=True, help='Skip animated banner')
 @click.option('--reset', is_flag=True, help='Reset configuration')
 def cli(ctx, no_banner, reset):
@@ -37,8 +37,11 @@ def cli(ctx, no_banner, reset):
             print_banner()
         else:
             click.echo("Pluto - AI Security Scanner")
-        click.echo("\nUse 'pluto scan --help' to see available options")
-        click.echo("Use 'pluto --reset' to reconfigure\n")
+        click.echo("\nCommands:")
+        click.echo("  pluto scan         - Scan code for vulnerabilities")
+        click.echo("  pluto pip install  - Safely install Python packages")
+        click.echo("  pluto npm install  - Safely install NPM packages")
+        click.echo("\nUse 'pluto --help' for more options\n")
 
 class AIProgressTracker:
     """Track and display AI analysis progress"""
@@ -85,7 +88,6 @@ class AIProgressTracker:
         frame_idx = 0
         
         while self.running:
-            # Update stage every 2 seconds
             if self.elapsed > 0 and self.elapsed % 20 == 0:
                 self.current_stage_idx = min(
                     self.current_stage_idx + 1, 
@@ -95,19 +97,16 @@ class AIProgressTracker:
             stage = self.stages[self.current_stage_idx]
             frame = frames[frame_idx % len(frames)]
             
-            # Progress bar
             progress = min(int((self.current_stage_idx / len(self.stages)) * 100), 95)
             bar_length = 30
             filled = int((progress / 100) * bar_length)
             bar = '█' * filled + '░' * (bar_length - filled)
             
-            # Time display
             mins = self.elapsed // 10 // 60
             secs = (self.elapsed // 10) % 60
             time_str = f"{mins:02d}:{secs:02d}"
             
-            # Build display
-            sys.stdout.write('\r' + ' ' * 100 + '\r')  # Clear line
+            sys.stdout.write('\r' + ' ' * 100 + '\r')
             sys.stdout.write(
                 f"  {self.ORANGE}{frame}{self.RESET} "
                 f"{self.BOLD}{self.filename}{self.RESET} "
@@ -117,8 +116,6 @@ class AIProgressTracker:
                 f"  {self.DIM}└─ {stage}...{self.RESET}"
             )
             sys.stdout.flush()
-            
-            # Move cursor up
             sys.stdout.write('\033[F')
             
             frame_idx += 1
@@ -131,11 +128,9 @@ class AIProgressTracker:
         if self.thread:
             self.thread.join()
         
-        # Clear lines
         sys.stdout.write('\r' + ' ' * 100 + '\r')
         sys.stdout.write('\033[F\r' + ' ' * 100 + '\r')
         
-        # Final status
         if success:
             sys.stdout.write(
                 f"  {self.GREEN}✓{self.RESET} "
@@ -151,6 +146,56 @@ class AIProgressTracker:
                 f"{self.YELLOW}Analysis incomplete{self.RESET}\n"
             )
         sys.stdout.flush()
+
+@cli.group()
+def pip():
+    """Python package management with security scanning"""
+    pass
+
+@pip.command()
+@click.argument('package')
+def install(package):
+    """Scan and install a Python package safely"""
+    from pluto.scanners.pip_scanner import PipScanner
+    
+    scanner = PipScanner(package)
+    
+    try:
+        # Scan package
+        if not scanner.scan():
+            return
+        
+        # Ask for confirmation
+        if scanner.should_install():
+            scanner.install()
+        else:
+            print("Installation cancelled.")
+    finally:
+        scanner.cleanup()
+
+@cli.group()
+def npm():
+    """NPM package management with security scanning"""
+    pass
+
+@npm.command()
+@click.argument('package')
+def install(package):
+    """Scan and install an NPM package safely"""
+    from pluto.scanners.npm_scanner import NpmScanner
+    
+    scanner = NpmScanner(package)
+    
+    try:
+        if not scanner.scan():
+            return
+        
+        if scanner.should_install():
+            scanner.install()
+        else:
+            print("Installation cancelled.")
+    finally:
+        scanner.cleanup()
 
 @cli.command()
 @click.option('-code', '--code-file', type=click.Path(exists=True), help='Analyze a single code file')
@@ -228,10 +273,8 @@ def scan(code_file, directory, git_repo, provider, model, report, output, min_se
         filename = Path(file_path).name
         
         if no_progress:
-            # Simple animation
             AnimatedBanner.animate_scanning(filename)
         else:
-            # Advanced progress tracking
             tracker = AIProgressTracker()
             tracker.start(filename)
         
