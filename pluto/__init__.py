@@ -8,7 +8,7 @@ Website: https://hackbit.org
 License: MIT
 """
 
-__version__ = "1.0.0"
+__version__ = "1.2.0"
 __author__ = "0xSaikat"
 __email__ = "contact@hackbit.org"
 __license__ = "MIT"
