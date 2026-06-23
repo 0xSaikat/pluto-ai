@@ -11,9 +11,20 @@
 
 **Pluto** is a powerful CLI tool that uses AI to detect security vulnerabilities in your code.
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Examples](#-examples) • [Contributing](#-contributing)
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Examples](#-examples) • [Roadmap](#-roadmap) • [Contributing](#-contributing)
 
 </div>
+
+---
+
+## 🚧 Coming Soon
+
+> **Web Platform** — A full-featured web interface for Pluto is currently in active development.
+>
+> - 🎨 **Frontend** — Modern dashboard for uploading, scanning, and visualizing security reports *(coming soon)*
+> - ⚙️ **Backend** — REST API powering scan jobs, report history, and team management *(coming soon)*
+>
+> Stay tuned at [pluto.hackzar.com](https://pluto.hackzar.com) for updates.
 
 ---
 
@@ -230,7 +241,7 @@ Beautiful wizard guides you through configuration:
 ```
 Step 1: Select AI Provider
   🤖 [1] Claude (Anthropic) - Best quality
-  🧠 [2] OpenAI (GPT) - High quality  
+  🧠 [2] OpenAI (GPT) - High quality
   🏠 [3] Ollama (Local) - Free & private
 ```
 
@@ -245,6 +256,16 @@ Pluto saves your preferences at `~/.pluto/config.json`:
   "setup_complete": true
 }
 ```
+
+## 🗺️ Roadmap
+
+- [x] CLI tool with multi-provider AI support
+- [x] Package security scanning (`pluto pip/npm install`)
+- [x] PDF / JSON / Markdown report export
+- [ ] **Web Frontend** — Dashboard UI *(in development)*
+- [ ] **REST API Backend** — Scan jobs, history, team support *(in development)*
+- [ ] VS Code extension
+- [ ] GitHub Actions integration
 
 ## 🤝 Contributing
 
@@ -263,14 +284,15 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 ## 👨‍💻 Author
 
 **0xSaikat**
-- Website: [pluto.hackbit.org](https://pluto.hackbit.org)
+- Website: [pluto.hackzar.com](https://pluto.hackzar.com)
+- Platform: [hackzar.com](https://hackzar.com)
 - GitHub: [@0xSaikat](https://github.com/0xSaikat)
 - Twitter: [@0xSaikat](https://twitter.com/0xSaikat)
 
 ## 🎖️ Acknowledgments
 
 - Powered by Claude (Anthropic), OpenAI, and Ollama
-- Built with ❤️ for the security community
+- Built with ❤️ for the security community by [Hackzar](https://hackzar.com)
 - Special thanks to all contributors and users
 
 ## ⚠️ Disclaimer
@@ -289,7 +311,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <a href="https://github.com/0xSaikat"><img src="https://img.shields.io/badge/GitHub-0xSaikat-181717?style=for-the-badge&logo=github" alt="GitHub"></a>
 <a href="https://twitter.com/0xSaikat"><img src="https://img.shields.io/badge/Twitter-0xSaikat-1DA1F2?style=for-the-badge&logo=twitter" alt="Twitter"></a>
-<a href="https://pluto.hackbit.org"><img src="https://img.shields.io/badge/Web-hackbit.org-FF6B35?style=for-the-badge&logo=safari" alt="Web"></a>
+<a href="https://hackzar.com"><img src="https://img.shields.io/badge/Web-hackzar.com-FF6B35?style=for-the-badge&logo=safari" alt="Web"></a>
 
 **⭐ Star us on GitHub — it helps!**
 
