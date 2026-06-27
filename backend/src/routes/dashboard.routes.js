@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const { getDashboard } = require('../controllers/dashboard.controller');
+const { protect } = require('../middleware/auth');
 
-// Auth routes — will be completed in Phase 7
+router.get('/', protect, getDashboard);
 
 module.exports = router;

@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const {
+  getReports,
+  getReportById,
+  downloadReport,
+} = require('../controllers/report.controller');
+const { protect } = require('../middleware/auth');
 
-// Auth routes — will be completed in Phase 7
+router.get('/', protect, getReports);
+router.get('/:id', protect, getReportById);
+router.get('/:id/download', protect, downloadReport);
 
 module.exports = router;

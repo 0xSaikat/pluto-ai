@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const {
+  getAllActivityLogs,
+  getMyActivityLogs,
+} = require('../controllers/activity.controller');
+const { protect, adminOnly } = require('../middleware/auth');
 
-// Auth routes — will be completed in Phase 7
+router.get('/', protect, adminOnly, getAllActivityLogs);
+router.get('/me', protect, getMyActivityLogs);
 
 module.exports = router;
