@@ -9,37 +9,69 @@ const Report = require('./Report');
 const ActivityLog = require('./ActivityLog');
 const Feedback = require('./Feedback');
 
-// User has many Projects
-User.hasMany(Project, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-Project.belongsTo(User, { foreignKey: 'user_id' });
+// User → Project
+User.hasMany(Project, {
+  foreignKey: 'user_id',
+  as: 'Projects',
+  onDelete: 'CASCADE',
+});
+Project.belongsTo(User, { foreignKey: 'user_id', as: 'User' });
 
-// Project has many Scans
-Project.hasMany(Scan, { foreignKey: 'project_id', as: 'Scans', onDelete: 'CASCADE' });
-Scan.belongsTo(Project, { foreignKey: 'project_id' });
+// Project → Scan
+Project.hasMany(Scan, {
+  foreignKey: 'project_id',
+  as: 'Scans',
+  onDelete: 'CASCADE',
+});
+Scan.belongsTo(Project, { foreignKey: 'project_id', as: 'Project' });
 
-// Scan has one SourceCode
-Scan.hasOne(SourceCode, { foreignKey: 'scan_id', onDelete: 'CASCADE' });
-SourceCode.belongsTo(Scan, { foreignKey: 'scan_id' });
+// Scan → SourceCode
+Scan.hasOne(SourceCode, {
+  foreignKey: 'scan_id',
+  as: 'SourceCode',
+  onDelete: 'CASCADE',
+});
+SourceCode.belongsTo(Scan, { foreignKey: 'scan_id', as: 'Scan' });
 
-// Scan has many Vulnerabilities
-Scan.hasMany(Vulnerability, { foreignKey: 'scan_id', onDelete: 'CASCADE' });
-Vulnerability.belongsTo(Scan, { foreignKey: 'scan_id' });
+// Scan → Vulnerability
+Scan.hasMany(Vulnerability, {
+  foreignKey: 'scan_id',
+  as: 'Vulnerabilities',
+  onDelete: 'CASCADE',
+});
+Vulnerability.belongsTo(Scan, { foreignKey: 'scan_id', as: 'Scan' });
 
-// Scan has one Report
-Scan.hasOne(Report, { foreignKey: 'scan_id', onDelete: 'CASCADE' });
-Report.belongsTo(Scan, { foreignKey: 'scan_id' });
+// Scan → Report
+Scan.hasOne(Report, {
+  foreignKey: 'scan_id',
+  as: 'Report',
+  onDelete: 'CASCADE',
+});
+Report.belongsTo(Scan, { foreignKey: 'scan_id', as: 'Scan' });
 
-// User has many ActivityLogs
-User.hasMany(ActivityLog, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-ActivityLog.belongsTo(User, { foreignKey: 'user_id' });
+// User → ActivityLog
+User.hasMany(ActivityLog, {
+  foreignKey: 'user_id',
+  as: 'ActivityLogs',
+  onDelete: 'CASCADE',
+});
+ActivityLog.belongsTo(User, { foreignKey: 'user_id', as: 'User' });
 
-// User has many Feedback
-User.hasMany(Feedback, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-Feedback.belongsTo(User, { foreignKey: 'user_id' });
+// User → Feedback
+User.hasMany(Feedback, {
+  foreignKey: 'user_id',
+  as: 'Feedbacks',
+  onDelete: 'CASCADE',
+});
+Feedback.belongsTo(User, { foreignKey: 'user_id', as: 'User' });
 
-// Report has many Feedback
-Report.hasMany(Feedback, { foreignKey: 'report_id', onDelete: 'CASCADE' });
-Feedback.belongsTo(Report, { foreignKey: 'report_id' });
+// Report → Feedback
+Report.hasMany(Feedback, {
+  foreignKey: 'report_id',
+  as: 'Feedbacks',
+  onDelete: 'CASCADE',
+});
+Feedback.belongsTo(Report, { foreignKey: 'report_id', as: 'Report' });
 
 module.exports = {
   sequelize,
