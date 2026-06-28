@@ -30,7 +30,7 @@
             "url": "{{baseUrl}}/api/auth/register",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"full_name\": \"Sadia Islam\",\n  \"email\": \"sadia@example.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"full_name\": \"Tanji Lanta\",\n  \"email\": \"tanji@gmail.com\",\n  \"password\": \"password123\"\n}"
             }
           }
         },
@@ -58,7 +58,7 @@
             "url": "{{baseUrl}}/api/auth/login",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"sadia@example.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"email\": \"tanji@gmail.com\",\n  \"password\": \"password123\"\n}"
             }
           }
         },

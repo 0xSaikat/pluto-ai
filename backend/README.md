@@ -1,12 +1,12 @@
 # Pluto AI — Backend API
-AI Code Security Analyzer
+AI Code Security Analyzer | CSE4104-7C-T04
 
 ## Team Information
 
 | Name | Student ID | Role |
 |------|-----------|------|
-| Sadia Islam Jhumur | 11230121171  | Team Leader |
-| Sakil Hasan Saikot | 11230121188 | AI Intigration |
+| Sadia Islam Jhumur | 11230121171 | Team Leader |
+| Sakil Hasan Saikot | 11230121188 | Ai Integration |
 | Tanjilanta Kanchi | 11220121034 | Backend |
 | Farin Islam Mim | 11230121061 | Frontend |
 
