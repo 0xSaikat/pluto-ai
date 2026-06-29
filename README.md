@@ -277,6 +277,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## 👥 Contributors
+
+Thanks to everyone who has contributed to Pluto!
+
+<a href="https://github.com/0xSaikat/pluto-ai/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=0xSaikat/pluto-ai" alt="Contributors" />
+</a>
+
 ## 📝 Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
