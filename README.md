@@ -24,7 +24,7 @@
 > - 🎨 **Frontend** — Modern dashboard for uploading, scanning, and visualizing security reports *(coming soon)*
 > - ⚙️ **Backend** — REST API powering scan jobs, report history, and team management *(coming soon)*
 >
-> Stay tuned at [pluto.hackzar.com](https://pluto.hackzar.com) for updates.
+>
 
 ---
 
@@ -292,15 +292,13 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 ## 👨‍💻 Author
 
 **0xSaikat**
-- Website: [pluto.hackzar.com](https://pluto.hackzar.com)
-- Platform: [hackzar.com](https://hackzar.com)
 - GitHub: [@0xSaikat](https://github.com/0xSaikat)
 - Twitter: [@0xSaikat](https://twitter.com/0xSaikat)
 
 ## 🎖️ Acknowledgments
 
 - Powered by Claude (Anthropic), OpenAI, and Ollama
-- Built with ❤️ for the security community by [Hackzar](https://hackzar.com)
+- Built with ❤️ for the security community.
 - Special thanks to all contributors and users
 
 ## ⚠️ Disclaimer
@@ -319,7 +317,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <a href="https://github.com/0xSaikat"><img src="https://img.shields.io/badge/GitHub-0xSaikat-181717?style=for-the-badge&logo=github" alt="GitHub"></a>
 <a href="https://twitter.com/0xSaikat"><img src="https://img.shields.io/badge/Twitter-0xSaikat-1DA1F2?style=for-the-badge&logo=twitter" alt="Twitter"></a>
-<a href="https://hackzar.com"><img src="https://img.shields.io/badge/Web-hackzar.com-FF6B35?style=for-the-badge&logo=safari" alt="Web"></a>
 
 **⭐ Star us on GitHub — it helps!**
 
