@@ -1,0 +1,5 @@
+$kind: collection
+description: Complete API collection for AI Code Security Analyzer — CSE4104-7C-T04
+variables:
+  baseUrl: http://localhost:5000
+  token: ""

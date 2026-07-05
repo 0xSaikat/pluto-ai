@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/projects"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "project_name": "Pluto AI Web Platform",
+      "description": "Security analysis for our CSE4104 course project"
+    }
+order: 1000

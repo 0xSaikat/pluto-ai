@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/api/scans/1/rescan"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+order: 5000

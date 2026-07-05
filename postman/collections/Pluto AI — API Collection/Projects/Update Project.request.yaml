@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/projects/3"
+method: PUT
+headers:
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "project_name": "Pluto AI Web Platform Updated",
+      "description": "Updated security analysis project"
+    }
+order: 4000

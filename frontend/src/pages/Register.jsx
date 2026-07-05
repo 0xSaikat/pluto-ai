@@ -1,45 +1,178 @@
-import registerBg from "../assets/register.jpg";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { registerUser, saveToken } from "../api";
 
 function Register() {
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!formData.full_name || !formData.email || !formData.password) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const data = await registerUser(formData);
+      saveToken(data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message || "Registration failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-      style={{
-        backgroundImage: `url(${registerBg})`,
-      }}
-    >
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/75"></div>
-
-      {/* Register Card */}
-      <div className="relative z-10 bg-gray-900/90 backdrop-blur-md p-10 rounded-2xl w-[450px] border border-cyan-500 shadow-2xl">
-
-        <h1 className="text-4xl font-bold text-cyan-400 mb-8 text-center">
+    <div style={{
+      minHeight: "100vh",
+      background: "#0a0a0a",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "Arial, sans-serif"
+    }}>
+      <div style={{
+        background: "#111",
+        border: "1px solid #222",
+        borderRadius: "12px",
+        padding: "48px 40px",
+        width: "100%",
+        maxWidth: "420px"
+      }}>
+        <h2 style={{
+          color: "#00bcd4",
+          textAlign: "center",
+          marginBottom: "32px",
+          fontSize: "28px",
+          fontWeight: "bold"
+        }}>
           Create Account
-        </h1>
+        </h2>
 
-        <input
-          type="text"
-          placeholder="Full Name"
-          className="w-full p-4 mb-5 rounded bg-gray-800 text-white placeholder-gray-400"
-        />
+        {error && (
+          <div style={{
+            background: "#1a0000",
+            border: "1px solid #ff4444",
+            color: "#ff4444",
+            padding: "12px 16px",
+            borderRadius: "8px",
+            marginBottom: "20px",
+            fontSize: "14px"
+          }}>
+            {error}
+          </div>
+        )}
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-4 mb-5 rounded bg-gray-800 text-white placeholder-gray-400"
-        />
+        <form onSubmit={handleRegister}>
+          <div style={{ marginBottom: "20px" }}>
+            <input
+              type="text"
+              name="full_name"
+              placeholder="Full Name"
+              value={formData.full_name}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "14px 16px",
+                background: "#1a1a2e",
+                border: "1px solid #333",
+                borderRadius: "8px",
+                color: "#fff",
+                fontSize: "15px",
+                outline: "none",
+                boxSizing: "border-box"
+              }}
+            />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-4 mb-5 rounded bg-gray-800 text-white placeholder-gray-400"
-        />
+          <div style={{ marginBottom: "20px" }}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "14px 16px",
+                background: "#1a1a2e",
+                border: "1px solid #333",
+                borderRadius: "8px",
+                color: "#fff",
+                fontSize: "15px",
+                outline: "none",
+                boxSizing: "border-box"
+              }}
+            />
+          </div>
 
-        <button className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold p-4 rounded">
-          Register
-        </button>
+          <div style={{ marginBottom: "28px" }}>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "14px 16px",
+                background: "#1a1a2e",
+                border: "1px solid #333",
+                borderRadius: "8px",
+                color: "#fff",
+                fontSize: "15px",
+                outline: "none",
+                boxSizing: "border-box"
+              }}
+            />
+          </div>
 
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: "100%",
+              padding: "14px",
+              background: loading ? "#555" : "#00bcd4",
+              color: "#000",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              cursor: loading ? "not-allowed" : "pointer"
+            }}
+          >
+            {loading ? "Creating account..." : "Register"}
+          </button>
+        </form>
+
+        <p style={{ color: "#888", textAlign: "center", marginTop: "24px", fontSize: "14px" }}>
+          Already have an account?{" "}
+          <Link to="/login" style={{ color: "#00bcd4", textDecoration: "none" }}>
+            Login here
+          </Link>
+        </p>
       </div>
     </div>
   );

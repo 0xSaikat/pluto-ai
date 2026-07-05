@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/api/reports/1/download"
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+order: 3000

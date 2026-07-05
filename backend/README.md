@@ -7,7 +7,7 @@ AI Code Security Analyzer | CSE4104-7C-T04
 |------|-----------|------|
 | Sadia Islam Jhumur | 11230121171 | Team Leader |
 | Sakil Hasan Saikot | 11230121188 | Ai Integration |
-| Tanjilanta Kanchi | 11220121034 | Backend |
+| Tanjilanta Kanchi | 11220321034 | Backend |
 | Farin Islam Mim | 11230121061 | Frontend |
 
 ## Project Overview

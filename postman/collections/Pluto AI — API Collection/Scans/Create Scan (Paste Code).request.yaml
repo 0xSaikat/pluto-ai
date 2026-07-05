@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/scans"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "project_id": 3,
+      "scan_type": "paste",
+      "source_content": "SELECT * FROM users WHERE id = ' + userId + '"
+    }
+order: 1000

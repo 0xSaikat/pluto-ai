@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/api/dashboard"
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+order: 1000
