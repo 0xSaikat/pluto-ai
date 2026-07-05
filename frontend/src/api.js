@@ -1,11 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // Store token in localStorage
-export const saveToken = (token) => localStorage.setItem('token', token);
-export const getToken = () => localStorage.getItem('token');
-export const removeToken = () => localStorage.removeItem('token');
-export const isLoggedIn = () => !!getToken();
-
+export const saveToken = (token) => localStorage.setItem("token", token);
+export const getToken = () => localStorage.getItem("token");
+export const removeToken = () => localStorage.removeItem("token");
+export const isLoggedIn = () => !!localStorage.getItem("token");
 // Base fetch function
 const apiFetch = async (endpoint, options = {}) => {
   const token = getToken();
