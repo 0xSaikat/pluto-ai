@@ -1,336 +1,242 @@
-# 🛡️ Pluto - AI-Powered Code Security Analyzer
+# 🛡️ Pluto AI — Code Security Analyzer
 
 <div align="center">
 
 ![logo](assets/cover.png)
 
-[![PyPI version](https://badge.fury.io/py/pluto-ai.svg)](https://badge.fury.io/py/pluto-ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
-[![Downloads](https://static.pepy.tech/badge/pluto-ai)](https://pepy.tech/project/pluto-ai)
+[![GitHub](https://img.shields.io/badge/GitHub-CSE4104--7C--T04-181717?logo=github)](https://github.com/0xSaikat/pluto-ai)
 
-**Pluto** is a powerful AI-powered code security analyzer available as both a CLI tool and a full-featured web platform.
+**Pluto AI** is an AI-powered web platform that scans source code for security vulnerabilities, classifies risks using CWE standards, and generates detailed remediation reports.
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Examples](#-examples) • [Roadmap](#-roadmap) • [Contributing](#-contributing)
+[Features](#-core-features) • [Web Platform](#-web-platform) • [Getting Started](#-getting-started) • [Documentation](#-project-documentation) • [Team](#-team-information)
 
 </div>
 
 ---
-## 🌐 Web Platform
 
-> The Pluto AI Web Platform is now in active development as part of CSE4104 — Software Engineering at Northern University of Business and Technology, Khulna.
-
-### Team — CSE4104-7C-T04
+## Team Information
 
 | Name | Student ID |
 |------|-----------|
-| Sadia Islam Jhumur | 11230121171 |
-| Sakil Hasan Saikot | 11230121188 |
-| Tanjilanta Kanchi | 11220121034 |
-| Farin Islam Mim | 11230121061 |
-
-## What We Built
-
-- ⚙️ **Backend** — Node.js + Express.js REST API with PostgreSQL database, JWT authentication, bcrypt password hashing, and mock AI security engine
-- 🎨 **Frontend** — React.js + Vite web application with Tailwind CSS, full authentication flow, security analyzer, and real-time vulnerability reports
-
-## 🚧 Coming Soon
-
-> **Web Platform** — A full-featured web interface for Pluto is currently in active development.
->
+| Sadia Islam Jhumur | 11230121171 | 
+| Sakil Hasan Saikot | 11230121188 | 
+| Tanjilanta Kanchi | 11220121034 | 
+| Farin Islam Mim | 11230121061 | 
 
 ---
 
-## ✨ What's New in v1.2.0
+## Problem Statement
 
-- 🛡️ **Package Security Scanning** - Scan packages before installation
-- 📦 **Safe Installation** - `pluto pip install` and `pluto npm install`
-- 🔍 **AI-Powered Analysis** - Detect malicious code in packages
-- ⚠️ **Risk Assessment** - Warning for dangerous packages
-- 📊 **Security Reports** - Detailed vulnerability breakdown
+Developers frequently introduce security vulnerabilities without 
+realizing it. Most existing tools are either too complex, too 
+expensive, or require deep security expertise to interpret results.
 
-### 📦 New Commands
+Pluto AI solves this by providing a simple web interface where 
+any developer can paste code or submit a GitHub repository and 
+instantly receive a clear, detailed vulnerability report with 
+specific fix recommendations.
+
+---
+
+## What the Platform Does
+
+- Accepts source code via direct paste or GitHub repository URL
+- Analyzes code using an AI security engine
+- Detects security weaknesses and classifies them by severity
+- Maps each finding to its CWE standard classification
+- Calculates an overall risk score from 0 to 100
+- Generates a downloadable security report
+- Tracks scan history and activity through a user dashboard
+
+---
+
+## ✨ Core Features
+
+**User Authentication**
+- Registration and login with JWT authentication
+- Password hashing with bcrypt
+- Protected routes and role-based access control
+
+**Project Management**
+- Create and organize multiple projects
+- View project history and previous scans
+- Full CRUD operations per project
+
+**Source Code Scanning**
+- Submit code via paste or GitHub repository URL
+- Real-time scan status tracking
+- Rescan capability on existing submissions
+
+**AI-Powered Vulnerability Detection**
+- Detects 12 types of real-world security vulnerabilities
+- CWE standard classification for every finding
+- Severity levels — CRITICAL, HIGH, MEDIUM, LOW
+- Remediation recommendation for each vulnerability
+- Risk score calculated from 0 to 100
+
+**Security Reports**
+- Auto-generated after every completed scan
+- Full vulnerability summary with severity breakdown
+- Downloadable report in JSON format
+
+**Dashboard**
+- Live statistics — total scans, threats found, safe projects
+- Recent activity feed loaded from backend
+- No hardcoded data
+
+**Activity Logging**
+- Every user action recorded automatically
+- Full audit trail visible on dashboard
+
+**Vulnerability Tracking**
+- Mark each finding as open, fixed, or ignored
+- Track remediation progress per scan
+---
+
+## Technology Stack
+
+**Frontend**
+
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| React.js | 18 | UI framework |
+| Vite | 5 | Build tool |
+| Tailwind CSS | 4 | Styling |
+| React Router DOM | 6 | Navigation |
+
+**Backend**
+
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| Node.js | LTS | Runtime |
+| Express.js | 4 | API framework |
+| PostgreSQL | 18 | Database |
+| Sequelize | 6 | ORM |
+| JSON Web Token | 9 | Authentication |
+| bcryptjs | 2 | Password security |
+
+## Database
+- PostgreSQL 18
+- Sequelize ORM v6
+
+## AI Services
+- Google Gemini API
+
+## Development Tools
+- Git
+- GitHub
+- VS Code
+- Postman
+- pgAdmin
+- Figma
+
+## Deployment
+- Vercel (Frontend)
+- Render (Backend)
+- Neon or Supabase (PostgreSQL cloud database)
+---
+
+## Repository Structure
+pluto-ai/
+├── frontend/ ← React.js web application
+│ ├── src/
+│ │ ├── pages/ ← All page components
+│ │ ├── components/ ← Reusable UI components
+│ │ └── api.js ← Backend API service
+│ └── README.md
+├── backend/ ← Node.js REST API
+│ ├── src/
+│ │ ├── controllers/
+│ │ ├── models/
+│ │ ├── routes/
+│ │ ├── middleware/
+│ │ └── services/
+│ └── README.md
+├── database/ ← Database files
+├── documentation/ ← Weekly reports and documents
+├── diagrams/ ← System design diagrams
+└── README.md
+
+---
+
+## Getting Started
+
+### Requirements
+- Node.js LTS
+- PostgreSQL 18
+- npm
+
+### Run Backend
 ```bash
-# Safely install Python packages
-pluto pip install requests
-
-# Safely install NPM packages
-pluto npm install express
+cd backend
+npm install
+npm run dev
 ```
+Server starts at `http://localhost:5000`
 
-## 🚀 Features
-
-- 🤖 **Multiple AI Providers**: Claude, OpenAI, Ollama (local)
-- 📁 **Flexible Input**: Analyze files, directories, or GitHub repositories
-- 📊 **Multiple Report Formats**: Terminal, PDF, JSON, Markdown
-- 🔒 **Privacy-First**: Local analysis with Ollama support
-- 🎯 **Severity Filtering**: Focus on CRITICAL, HIGH, MEDIUM, or LOW issues
-- 🌐 **Multi-Language Support**: Python, JavaScript, Java, C/C++, Go, Rust, PHP, Ruby, and more
-- ⚡ **Real-time Progress**: Live updates showing what AI is analyzing
-- 🎨 **Beautiful UI**: Modern orange theme with animated elements
-
-## 🔍 Security Checks
-
-Pluto detects:
-- 💉 SQL Injection
-- 🔓 XSS (Cross-Site Scripting)
-- 🔑 Authentication/Authorization flaws
-- 🔐 Hardcoded secrets & credentials
-- 🛡️ Insecure cryptography
-- 📂 Path traversal
-- ⚡ Command injection
-- 🔒 CSRF vulnerabilities
-- 📦 Insecure dependencies
-- And many more...
-
-## 📦 Installation
-
-### From PyPI (Recommended)
+### Run Frontend
 ```bash
-pip install pluto-ai
+cd frontend
+npm install
+npm run dev
 ```
+App opens at `http://localhost:5173/pluto-ai/`
 
-### Upgrade to Latest Version
-```bash
-pip install --upgrade pluto-ai
-```
+> Both servers must run at the same time.
+> See each folder's README for full configuration details.
 
-### From Source
-```bash
-git clone https://github.com/0xSaikat/pluto-ai.git
-cd pluto-ai
-pip install -e .
-```
+---
 
-## ⚙️ First-Time Setup
+## Project Documentation
 
-When you run Pluto for the first time, you'll be guided through an interactive setup:
-```bash
-pluto
-```
+### Available Documents
 
-The setup wizard will help you:
-1. Choose your AI provider (Claude, OpenAI, or Ollama)
-2. Select the best model for your needs
-3. Configure API keys (if using cloud providers)
-4. Verify your installation
+| Document | Description |
+|----------|-------------|
+| Project Proposal | Initial project idea, objectives and scope |
+| Team Information Sheet | Team members, roles and responsibilities |
+| Software Requirements Specification | Functional and non-functional requirements |
+| System Design Document | Architecture, API design and component breakdown |
+| UI/UX Design Document | Screen designs and user flow |
+| Backend Progress Report | API implementation and database documentation |
+| Frontend Integration Report | UI development and backend connection details |
+| Database Design Document | ER diagram, table schemas and relationships |
+| API Collection | Postman collection for all 23 endpoints |
 
-## 💻 Usage
+### Available Diagrams
 
-### Basic Commands
-```bash
-# First run - interactive setup
-pluto
+| Diagram | Description |
+|---------|-------------|
+| System Architecture Diagram | Multi-layer system architecture overview |
+| Entity Relationship Diagram | Database tables and relationships |
+| Use Case Diagram | User and admin interactions with the system |
+| Activity Diagram | Step-by-step scan workflow from submission to report |
+---
 
-# Analyze a single file
-pluto scan -code app.py
+## Development Progress
 
-# Analyze entire directory with progress tracking
-pluto scan -dir ./src
+| Week | Deliverable | Status |
+|------|-------------|--------|
+| Week 01 | Team formation and idea selection | ✅ Done |
+| Week 02 | Project proposal | ✅ Done |
+| Week 03 | Software Requirements Specification | ✅ Done |
+| Week 04 | System design and ER diagram | ✅ Done |
+| Week 05 | UI/UX design | ✅ Done |
+| Week 06 | Backend development and database | ✅ Done |
+| Week 07 | Frontend development and integration | ✅ Done |
+| Week 08 | Testing and deployment | 🔄 Upcoming |
 
-# Analyze GitHub repository
-pluto scan -git https://github.com/user/repo
+---
 
-# Generate PDF report
-pluto scan -code app.py --report pdf --output security_audit
+## Disclaimer
 
-# Use specific provider
-pluto scan -code app.py --provider ollama --model phi
+This platform was developed for educational purposes as part of 
+CSE4104 Software Development III coursework. It is intended for 
+legitimate security analysis only. Always ensure you have 
+permission before scanning code you do not own.
 
-# Filter by severity
-pluto scan -dir ./src --min-severity HIGH
+---
 
-# Reset configuration
-pluto --reset
-```
-
-### Command Options
-```
-Options:
-  -code, --code-file PATH           Analyze a single code file
-  -dir, --directory PATH            Analyze entire directory
-  -git, --git-repo TEXT             Analyze GitHub repository
-  --provider [claude|openai|ollama] AI provider
-  --model TEXT                      Model name
-  --report [terminal|pdf|json|markdown]  Report format
-  --output TEXT                     Output file name
-  --min-severity [LOW|MEDIUM|HIGH|CRITICAL]  Minimum severity
-  --no-progress                     Disable progress bar
-  --no-banner                       Skip animated banner
-  --reset                           Reset configuration
-  --help                            Show help message
-```
-
-## 📚 Examples
-
-### Quick Security Scan
-```bash
-pluto scan -code myapp.py
-```
-
-### Full Project Audit with PDF Report
-```bash
-pluto scan -dir ./backend --report pdf --output project_audit
-```
-
-### GitHub Repository Analysis
-```bash
-pluto scan -git https://github.com/user/vulnerable-app --report json
-```
-
-### Local Private Scan (No API Required)
-```bash
-pluto scan -code sensitive_code.py --provider ollama --model phi
-```
-
-### CI/CD Integration
-```bash
-pluto scan -dir ./src --report json --output results.json --min-severity HIGH --no-banner --no-progress
-```
-
-### Multiple Files Analysis
-```bash
-pluto scan -dir ./app --min-severity CRITICAL --report markdown --output critical_issues
-```
-
-## 📊 Report Formats
-
-- **Terminal**: Colorful real-time output with severity highlighting and progress tracking
-- **PDF**: Professional report with logo, charts, severity breakdown, and detailed findings
-- **JSON**: Machine-readable format perfect for automation and CI/CD pipelines
-- **Markdown**: Documentation-friendly format for GitHub issues and wikis
-
-## 🎨 Supported Languages
-
-Python • JavaScript • TypeScript • Java • C/C++ • Go • Rust • PHP • Ruby • Swift • Kotlin
-
-## 🤖 AI Providers
-
-### Claude (Anthropic) - Recommended
-```bash
-# Get API key from: https://console.anthropic.com/
-export ANTHROPIC_API_KEY='sk-ant-...'
-pluto scan -code app.py --provider claude
-```
-
-### OpenAI
-```bash
-# Get API key from: https://platform.openai.com/api-keys
-export OPENAI_API_KEY='sk-...'
-pluto scan -code app.py --provider openai
-```
-
-### Ollama (Local & Free)
-```bash
-# Install from: https://ollama.ai
-ollama pull phi
-ollama serve
-pluto scan -code app.py --provider ollama --model phi
-```
-
-## 🎯 Advanced Features
-
-### Real-time Progress Tracking
-See exactly what AI is analyzing:
-```
-⠋ app.py [████████████░░░░░░░░░░░░░░░░░░] 45% (00:03)
-└─ Checking for SQL injection...
-```
-
-### Smart Error Handling
-Helpful error messages guide you through fixing issues:
-```
-⚠️  ERROR: Authentication Failed
-Your API key is invalid or expired.
-
-To fix this:
-  1. Get a new API key from: https://console.anthropic.com/
-  2. Run: pluto --reset
-  3. Or set: export ANTHROPIC_API_KEY='your-new-key'
-```
-
-### Interactive Setup
-Beautiful wizard guides you through configuration:
-```
-Step 1: Select AI Provider
-  🤖 [1] Claude (Anthropic) - Best quality
-  🧠 [2] OpenAI (GPT) - High quality
-  🏠 [3] Ollama (Local) - Free & private
-```
-
-## 🔧 Configuration File
-
-Pluto saves your preferences at `~/.pluto/config.json`:
-```json
-{
-  "provider": "claude",
-  "model": "claude-sonnet-4-20250514",
-  "api_key": "sk-ant-...",
-  "setup_complete": true
-}
-```
-
-## 🗺️ Roadmap
-
-- [x] CLI tool with multi-provider AI support
-- [x] Package security scanning (`pluto pip/npm install`)
-- [x] PDF / JSON / Markdown report export
-- [ ] **Web Frontend** — Dashboard UI *(in development)*
-- [ ] **REST API Backend** — Scan jobs, history, team support *(in development)*
-- [ ] VS Code extension
-- [ ] GitHub Actions integration
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 👥 Contributors
-
-Thanks to everyone who has contributed to Pluto!
-
-<a href="https://github.com/0xSaikat/pluto-ai/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=0xSaikat/pluto-ai" alt="Contributors" />
-</a>
-
-## 📝 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
-
-## 👨‍💻 Author
-
-**0xSaikat**
-- GitHub: [@0xSaikat](https://github.com/0xSaikat)
-- Twitter: [@0xSaikat](https://twitter.com/0xSaikat)
-
-## 🎖️ Acknowledgments
-
-- Powered by Claude (Anthropic), OpenAI, and Ollama
-- Built with ❤️ for the security community.
-- Special thanks to all contributors and users
-
-## ⚠️ Disclaimer
-
-Pluto is a security analysis tool intended for educational and legitimate security testing purposes only. Always ensure you have permission before scanning code or repositories you don't own.
-
-## 📄 License
-
+## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-**By the Hackers for the Hackers!**
-
-<a href="https://github.com/0xSaikat"><img src="https://img.shields.io/badge/GitHub-0xSaikat-181717?style=for-the-badge&logo=github" alt="GitHub"></a>
-<a href="https://twitter.com/0xSaikat"><img src="https://img.shields.io/badge/Twitter-0xSaikat-1DA1F2?style=for-the-badge&logo=twitter" alt="Twitter"></a>
-
-**⭐ Star us on GitHub — it helps!**
-
-</div>
