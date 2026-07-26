@@ -9,21 +9,34 @@
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![Downloads](https://static.pepy.tech/badge/pluto-ai)](https://pepy.tech/project/pluto-ai)
 
-**Pluto** is a powerful CLI tool that uses AI to detect security vulnerabilities in your code.
+**Pluto** is a powerful AI-powered code security analyzer available as both a CLI tool and a full-featured web platform.
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Examples](#-examples) • [Roadmap](#-roadmap) • [Contributing](#-contributing)
 
 </div>
 
 ---
+## 🌐 Web Platform
+
+> The Pluto AI Web Platform is now in active development as part of CSE4104 — Software Engineering at Northern University of Business and Technology, Khulna.
+
+### Team — CSE4104-7C-T04
+
+| Name | Student ID |
+|------|-----------|
+| Sadia Islam Jhumur | 11230121171 |
+| Sakil Hasan Saikot | 11230121188 |
+| Tanjilanta Kanchi | 11220121034 |
+| Farin Islam Mim | 11230121061 |
+
+## What We Built
+
+- ⚙️ **Backend** — Node.js + Express.js REST API with PostgreSQL database, JWT authentication, bcrypt password hashing, and mock AI security engine
+- 🎨 **Frontend** — React.js + Vite web application with Tailwind CSS, full authentication flow, security analyzer, and real-time vulnerability reports
 
 ## 🚧 Coming Soon
 
 > **Web Platform** — A full-featured web interface for Pluto is currently in active development.
->
-> - 🎨 **Frontend** — Modern dashboard for uploading, scanning, and visualizing security reports *(coming soon)*
-> - ⚙️ **Backend** — REST API powering scan jobs, report history, and team management *(coming soon)*
->
 >
 
 ---
