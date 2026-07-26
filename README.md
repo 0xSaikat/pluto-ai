@@ -138,25 +138,28 @@ specific fix recommendations.
 ---
 
 ## Repository Structure
+
+```
 pluto-ai/
-├── frontend/ ← React.js web application
-│ ├── src/
-│ │ ├── pages/ ← All page components
-│ │ ├── components/ ← Reusable UI components
-│ │ └── api.js ← Backend API service
-│ └── README.md
-├── backend/ ← Node.js REST API
-│ ├── src/
-│ │ ├── controllers/
-│ │ ├── models/
-│ │ ├── routes/
-│ │ ├── middleware/
-│ │ └── services/
-│ └── README.md
-├── database/ ← Database files
-├── documentation/ ← Weekly reports and documents
-├── diagrams/ ← System design diagrams
+├── frontend/               ← React.js web application
+│   ├── src/
+│   │   ├── pages/          ← All page components
+│   │   ├── components/     ← Reusable UI components
+│   │   └── api.js          ← Backend API service
+│   └── README.md
+├── backend/                ← Node.js REST API
+│   ├── src/
+│   │   ├── controllers/    ← Route handler functions
+│   │   ├── models/         ← Sequelize database models
+│   │   ├── routes/         ← API endpoint definitions
+│   │   ├── middleware/     ← Auth and validation middleware
+│   │   └── services/       ← Business logic and AI engine
+│   └── README.md
+├── database/               ← Database related files
+├── documentation/          ← Weekly reports and documents
+├── diagrams/               ← ER diagram, activity diagram, system design
 └── README.md
+```
 
 ---
 
