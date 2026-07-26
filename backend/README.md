@@ -1,23 +1,3 @@
-# Pluto AI — Backend API
-AI Code Security Analyzer | CSE4104-7C-T04
-
-## Team Information
-
-| Name | Student ID | Role |
-|------|-----------|------|
-| Sadia Islam Jhumur | 11230121171 | Team Leader |
-| Sakil Hasan Saikot | 11230121188 | Ai Integration |
-| Tanjilanta Kanchi | 11220321034 | Backend |
-| Farin Islam Mim | 11230121061 | Frontend |
-
-## Project Overview
-
-Pluto AI is an AI-powered source code security analyzer.
-Users submit source code through file upload, direct paste,
-or GitHub URL. The system analyzes the code for security
-vulnerabilities, classifies severity levels, generates
-remediation recommendations, and produces downloadable reports.
-
 ## Technology Stack
 
 | Layer | Technology |
