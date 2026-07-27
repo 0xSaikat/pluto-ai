@@ -21,7 +21,7 @@
 |------|-----------|
 | Sadia Islam Jhumur | 11230121171 | 
 | Sakil Hasan Saikot | 11230121188 | 
-| Tanjilanta Kanchi | 11220121034 | 
+| Tanjilanta Kanchi | 11220321034 | 
 | Farin Islam Mim | 11230121061 | 
 
 ---
@@ -243,3 +243,4 @@ permission before scanning code you do not own.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
