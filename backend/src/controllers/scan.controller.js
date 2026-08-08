@@ -6,7 +6,8 @@ const {
   Vulnerability,
   Report,
 } = require('../models/index');
-const { analyzeCode } = require('../services/mockAI.service');
+const { analyzeCodeWithAI } = require('../services/ai.service');
+const { fetchGitHubRepositoryContents } = require('../services/github.service');
 const { generateReport } = require('../services/report.service');
 const { logActivity } = require('../services/activity.service');
 
@@ -31,7 +32,7 @@ const scanValidation = [
     .isURL().withMessage('Please provide a valid GitHub URL'),
 ];
 
-// CREATE SCAN — triggers mock AI analysis
+// CREATE SCAN — triggers AI analysis & GitHub repo fetching if needed
 const createScan = async (req, res, next) => {
   try {
     const { project_id, scan_type, source_content, github_url } = req.body;
@@ -70,8 +71,18 @@ const createScan = async (req, res, next) => {
 
     await logActivity(req.user.id, `Scan started for project: ${project.project_name}`);
 
-    // Step 4 — Run mock AI analysis
-    const aiResult = await analyzeCode(source_content || github_url, scan_type);
+    // Fetch code from GitHub if scan_type is 'github'
+    let codeToAnalyze = source_content;
+    if (scan_type === 'github' && github_url) {
+      try {
+        codeToAnalyze = await fetchGitHubRepositoryContents(github_url);
+      } catch (err) {
+        codeToAnalyze = `// GitHub Repo: ${github_url}\n// Failed to fetch contents: ${err.message}`;
+      }
+    }
+
+    // Step 4 — Run AI analysis (Gemini or Fallback Engine)
+    const aiResult = await analyzeCodeWithAI(codeToAnalyze || github_url, scan_type);
 
     // Step 5 — Save vulnerabilities to database
     const vulnerabilityRecords = await Promise.all(
@@ -163,7 +174,7 @@ const getScanById = async (req, res, next) => {
         {
           model: SourceCode,
           as: 'SourceCode',
-          attributes: ['source_type', 'github_url'],
+          attributes: ['source_type', 'source_content', 'github_url'],
         },
         {
           model: Vulnerability,
@@ -225,12 +236,17 @@ const rescan = async (req, res, next) => {
     // Reset scan status
     await scan.update({ status: 'running', risk_score: 0 });
 
-    // Run analysis again
-    const sourceContent = scan.SourceCode
-      ? scan.SourceCode.source_content || scan.SourceCode.github_url
-      : null;
+    // Fetch GitHub content if needed or use source_content
+    let sourceContent = scan.SourceCode ? scan.SourceCode.source_content : null;
+    if (scan.scan_type === 'github' && scan.SourceCode?.github_url) {
+      try {
+        sourceContent = await fetchGitHubRepositoryContents(scan.SourceCode.github_url);
+      } catch (err) {
+        sourceContent = scan.SourceCode.github_url;
+      }
+    }
 
-    const aiResult = await analyzeCode(sourceContent, scan.scan_type);
+    const aiResult = await analyzeCodeWithAI(sourceContent || 'No content', scan.scan_type);
 
     // Save new vulnerabilities
     await Promise.all(

@@ -12,6 +12,8 @@ const vulnerabilityRoutes = require('./src/routes/vulnerability.routes');
 const reportRoutes = require('./src/routes/report.routes');
 const activityRoutes = require('./src/routes/activity.routes');
 const dashboardRoutes = require('./src/routes/dashboard.routes');
+const aiRoutes = require('./src/routes/ai.routes');
+const feedbackRoutes = require('./src/routes/feedback.routes');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();
@@ -21,7 +23,7 @@ app.use(helmet());
 
 // CORS — allows React frontend to call this backend
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -51,6 +53,8 @@ app.use('/api/vulnerabilities', vulnerabilityRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/activity-logs', activityRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // Global error handler — must always be last
 app.use(errorHandler);

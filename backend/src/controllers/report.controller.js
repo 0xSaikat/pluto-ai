@@ -1,5 +1,9 @@
 const { Report, Scan, Project, Vulnerability } = require('../models/index');
-const { generateReport } = require('../services/report.service');
+const {
+  generateReport,
+  generateMarkdownReport,
+  buildPDFReportStream,
+} = require('../services/report.service');
 const { logActivity } = require('../services/activity.service');
 
 // GET ALL REPORTS for logged in user
@@ -80,9 +84,11 @@ const getReportById = async (req, res, next) => {
   }
 };
 
-// DOWNLOAD REPORT as JSON
+// DOWNLOAD REPORT as JSON, Markdown, or PDF
 const downloadReport = async (req, res, next) => {
   try {
+    const format = (req.query.format || 'json').toLowerCase();
+
     const report = await Report.findOne({
       where: { id: req.params.id },
       include: [
@@ -109,17 +115,33 @@ const downloadReport = async (req, res, next) => {
 
     await logActivity(
       req.user.id,
-      `Report downloaded: Report ID ${report.id}`
+      `Report downloaded: Report ID ${report.id} (${format.toUpperCase()})`
     );
 
-    // Send as downloadable JSON file
+    const reportData = report.report_data || {};
+
+    if (format === 'pdf') {
+      return buildPDFReportStream(reportData, res);
+    }
+
+    if (format === 'md' || format === 'markdown') {
+      const mdContent = generateMarkdownReport(reportData);
+      res.setHeader('Content-Type', 'text/markdown');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="report_${report.id}.md"`
+      );
+      return res.status(200).send(mdContent);
+    }
+
+    // Default JSON download
     res.setHeader('Content-Type', 'application/json');
     res.setHeader(
       'Content-Disposition',
       `attachment; filename="report_${report.id}.json"`
     );
 
-    res.status(200).json(report.report_data);
+    res.status(200).json(reportData);
 
   } catch (error) {
     next(error);

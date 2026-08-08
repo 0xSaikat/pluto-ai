@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProjects, createProject, createScan, removeToken } from "../api";
+import { getProjects, createProject, createScan, getVulnerabilityFix, removeToken } from "../api";
+import AIChatModal from "../components/AIChatModal";
 
 function Analyzer() {
   const [projects, setProjects] = useState([]);
@@ -12,26 +13,35 @@ function Analyzer() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const [chatOpen, setChatOpen] = useState(false);
+
+  // Fix modal state
+  const [fixModalData, setFixModalData] = useState(null);
+  const [fixLoading, setFixLoading] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadProjects();
-  }, []);
-
-  const loadProjects = async () => {
-    try {
-      const data = await getProjects();
-      setProjects(data.projects);
-      if (data.projects.length > 0) {
-        setSelectedProject(data.projects[0].id);
-      }
-    } catch (err) {
-      if (err.message.includes("token") || err.message.includes("Access denied")) {
-        removeToken();
-        navigate("/login");
-      }
-    }
-  };
+    let isMounted = true;
+    getProjects()
+      .then((data) => {
+        if (!isMounted) return;
+        setProjects(data.projects || []);
+        if (data.projects && data.projects.length > 0) {
+          setSelectedProject(data.projects[0].id);
+        }
+      })
+      .catch((err) => {
+        if (!isMounted) return;
+        if (err.message.includes("token") || err.message.includes("Access denied")) {
+          removeToken();
+          navigate("/login");
+        }
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, [navigate]);
 
   const handleCreateProject = async () => {
     if (!newProjectName.trim()) {
@@ -88,6 +98,18 @@ function Analyzer() {
     }
   };
 
+  const handleGetFix = async (vuln) => {
+    try {
+      setFixLoading(true);
+      const data = await getVulnerabilityFix(vuln.id);
+      setFixModalData(data);
+    } catch (err) {
+      alert(`Error generating fix: ${err.message}`);
+    } finally {
+      setFixLoading(false);
+    }
+  };
+
   const getSeverityColor = (severity) => {
     const colors = {
       CRITICAL: "#ff1744",
@@ -109,22 +131,34 @@ function Analyzer() {
         <h1 style={{ color: "#00bcd4", fontSize: "22px", margin: 0 }}>
           Code Security Analyzer
         </h1>
-        <button
-          onClick={() => navigate("/dashboard")}
-          style={{
-            padding: "8px 16px", background: "transparent",
-            color: "#888", border: "1px solid #333",
-            borderRadius: "6px", cursor: "pointer", fontSize: "14px"
-          }}
-        >
-          Back to Dashboard
-        </button>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button
+            onClick={() => setChatOpen(true)}
+            style={{
+              padding: "8px 16px", background: "#00bcd422",
+              color: "#00bcd4", border: "1px solid #00bcd4",
+              borderRadius: "6px", cursor: "pointer", fontSize: "14px", fontWeight: "bold"
+            }}
+          >
+            💬 Ask AI Assistant
+          </button>
+          <button
+            onClick={() => navigate("/dashboard")}
+            style={{
+              padding: "8px 16px", background: "transparent",
+              color: "#888", border: "1px solid #333",
+              borderRadius: "6px", cursor: "pointer", fontSize: "14px"
+            }}
+          >
+            Back to Dashboard
+          </button>
+        </div>
       </div>
 
       <div style={{ padding: "32px", maxWidth: "900px", margin: "0 auto" }}>
         <h2 style={{ color: "#fff", marginBottom: "8px" }}>Security Scanner</h2>
         <p style={{ color: "#555", marginBottom: "32px", fontSize: "14px" }}>
-          Submit your source code for AI-powered security analysis
+          Submit your source code or GitHub URL for AI-powered security analysis
         </p>
 
         {error && (
@@ -260,12 +294,26 @@ function Analyzer() {
             marginBottom: "32px"
           }}
         >
-          {loading ? "Analyzing code... please wait..." : "Run Security Scan"}
+          {loading ? "Analyzing code with Gemini AI... please wait..." : "Run Security Scan"}
         </button>
 
         {/* Results */}
         {result && (
           <div>
+            {/* Action Bar */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+              <h3 style={{ color: '#fff', margin: 0 }}>Scan Completed</h3>
+              <button
+                onClick={() => navigate('/report')}
+                style={{
+                  padding: '10px 20px', background: '#00bcd4', color: '#000',
+                  border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer'
+                }}
+              >
+                📄 View Full Security Reports
+              </button>
+            </div>
+
             {/* Summary cards */}
             <div style={{
               display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
@@ -330,7 +378,7 @@ function Analyzer() {
                     <span style={{ color: "#fff", fontWeight: "bold", fontSize: "15px" }}>
                       {vuln.vulnerability_name}
                     </span>
-                    <div style={{ display: "flex", gap: "8px" }}>
+                    <div style={{ display: "flex", gap: "8px", alignItems: 'center' }}>
                       <span style={{
                         background: getSeverityColor(vuln.severity) + "22",
                         color: getSeverityColor(vuln.severity),
@@ -345,6 +393,24 @@ function Analyzer() {
                       }}>
                         {vuln.cwe_id}
                       </span>
+                      {vuln.id && (
+                        <button
+                          disabled={fixLoading}
+                          onClick={() => handleGetFix(vuln)}
+                          style={{
+                            background: fixLoading ? '#333' : '#00bcd422',
+                            border: '1px solid #00bcd4',
+                            color: '#00bcd4',
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            fontSize: '12px',
+                            cursor: fixLoading ? 'not-allowed' : 'pointer',
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          {fixLoading ? '⏳ Fixing...' : '⚡ Auto-Fix'}
+                        </button>
+                      )}
                     </div>
                   </div>
                   <p style={{ color: "#aaa", fontSize: "13px", margin: "0 0 8px 0" }}>
@@ -359,6 +425,40 @@ function Analyzer() {
           </div>
         )}
       </div>
+
+      {/* AI Assistant Chat Modal */}
+      <AIChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+
+      {/* Vulnerability Auto-Fix Modal */}
+      {fixModalData && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)',
+          zIndex: 1100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px'
+        }}>
+          <div style={{
+            width: '100%', maxWidth: '700px', maxHeight: '80vh', background: '#111',
+            border: '1px solid #00bcd4', borderRadius: '16px', padding: '24px', overflowY: 'auto'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ color: '#00bcd4', margin: 0 }}>
+                🛡️ AI Fix Snippet: {fixModalData.vulnerability_name} ({fixModalData.cwe_id})
+              </h3>
+              <button
+                onClick={() => setFixModalData(null)}
+                style={{ background: 'transparent', border: 'none', color: '#888', fontSize: '20px', cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+            <pre style={{
+              background: '#0a0a12', border: '1px solid #222', padding: '16px',
+              borderRadius: '8px', color: '#e0e0e0', whiteSpace: 'pre-wrap', fontFamily: 'Courier New', fontSize: '13px'
+            }}>
+              {fixModalData.fix}
+            </pre>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

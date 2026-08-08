@@ -32,7 +32,7 @@ function Dashboard() {
       }
     };
     fetchDashboard();
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     removeToken();

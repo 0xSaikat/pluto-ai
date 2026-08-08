@@ -1,7 +1,7 @@
 const { Report, Vulnerability, Scan, Project } = require('../models/index');
+const PDFDocument = require('pdfkit');
 
 const generateReport = async (scanId) => {
-  // Get scan with all related data
   const scan = await Scan.findByPk(scanId, {
     include: [
       {
@@ -20,7 +20,6 @@ const generateReport = async (scanId) => {
 
   const vulnerabilities = scan.Vulnerabilities || [];
 
-  // Build report data object
   const reportData = {
     scan_id: scanId,
     project_name: scan.Project ? scan.Project.project_name : 'Unknown',
@@ -46,7 +45,6 @@ const generateReport = async (scanId) => {
     generated_at: new Date(),
   };
 
-  // Save or update report in database
   const [report] = await Report.upsert({
     scan_id: scanId,
     generated_date: new Date(),
@@ -57,4 +55,135 @@ const generateReport = async (scanId) => {
   return report;
 };
 
-module.exports = { generateReport };
+/**
+ * Generate Markdown string from report data
+ */
+const generateMarkdownReport = (reportData) => {
+  let md = `# 🛡️ Pluto AI — Security Analysis Report\n\n`;
+  md += `**Project**: ${reportData.project_name}  \n`;
+  md += `**Scan ID**: ${reportData.scan_id}  \n`;
+  md += `**Scan Type**: ${reportData.scan_type}  \n`;
+  md += `**Scan Date**: ${new Date(reportData.scan_date).toLocaleString()}  \n`;
+  md += `**Overall Risk Score**: **${reportData.risk_score} / 100**  \n\n`;
+
+  md += `---  \n\n`;
+  md += `### 📊 Vulnerability Summary\n\n`;
+  md += `- **Total Vulnerabilities**: ${reportData.summary.total_vulnerabilities}\n`;
+  md += `- **Critical**: ${reportData.summary.critical}\n`;
+  md += `- **High**: ${reportData.summary.high}\n`;
+  md += `- **Medium**: ${reportData.summary.medium}\n`;
+  md += `- **Low**: ${reportData.summary.low}\n\n`;
+
+  md += `---  \n\n`;
+  md += `### ⚠️ Detailed Findings\n\n`;
+
+  if (reportData.vulnerabilities.length === 0) {
+    md += `*No vulnerabilities detected in this scan.*\n`;
+  } else {
+    reportData.vulnerabilities.forEach((v, index) => {
+      md += `#### ${index + 1}. ${v.name} (${v.cwe_id})\n`;
+      md += `- **Severity**: \`${v.severity}\`\n`;
+      md += `- **Status**: \`${v.status}\`\n`;
+      md += `- **Description**: ${v.description}\n`;
+      md += `- **Remediation**: ${v.recommendation}\n\n`;
+    });
+  }
+
+  md += `\n---\n*Report generated automatically by Pluto AI Security Analyzer.*`;
+  return md;
+};
+
+/**
+ * Stream PDF report generated with pdfkit
+ */
+const buildPDFReportStream = (reportData, res) => {
+  const doc = new PDFDocument({ margin: 40 });
+
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader(
+    'Content-Disposition',
+    `attachment; filename="pluto_security_report_${reportData.scan_id}.pdf"`
+  );
+
+  doc.pipe(res);
+
+  // Header banner
+  doc
+    .fillColor('#00bcd4')
+    .fontSize(22)
+    .text('Pluto AI — Code Security Report', { align: 'center' });
+  doc.moveDown(0.5);
+
+  doc
+    .fillColor('#555555')
+    .fontSize(10)
+    .text(`Generated at: ${new Date(reportData.generated_at).toLocaleString()}`, {
+      align: 'center',
+    });
+  doc.moveDown(1.5);
+
+  // Meta Table Box
+  doc
+    .rect(40, doc.y, 530, 80)
+    .fillAndStroke('#f5f7fa', '#e0e0e0');
+
+  doc.fillColor('#111111').fontSize(11);
+  doc.text(`Project Name: ${reportData.project_name}`, 55, 115);
+  doc.text(`Scan ID: ${reportData.scan_id}`, 55, 130);
+  doc.text(`Scan Type: ${reportData.scan_type}`, 55, 145);
+  doc.text(`Risk Score: ${reportData.risk_score} / 100`, 350, 115);
+  doc.text(`Total Threats: ${reportData.summary.total_vulnerabilities}`, 350, 130);
+
+  doc.moveDown(3);
+
+  // Summary Breakdown
+  doc.fillColor('#111111').fontSize(14).text('Vulnerability Summary');
+  doc.moveDown(0.5);
+  doc.fontSize(10);
+  doc.text(`- Critical: ${reportData.summary.critical}`);
+  doc.text(`- High: ${reportData.summary.high}`);
+  doc.text(`- Medium: ${reportData.summary.medium}`);
+  doc.text(`- Low: ${reportData.summary.low}`);
+  doc.moveDown(1.5);
+
+  // Vulnerability List
+  doc.fillColor('#111111').fontSize(14).text('Detailed Vulnerabilities');
+  doc.moveDown(0.5);
+
+  if (reportData.vulnerabilities.length === 0) {
+    doc.fillColor('#00c853').fontSize(11).text('No security vulnerabilities found!');
+  } else {
+    reportData.vulnerabilities.forEach((v, index) => {
+      const color =
+        v.severity === 'CRITICAL'
+          ? '#ff1744'
+          : v.severity === 'HIGH'
+          ? '#ff6d00'
+          : v.severity === 'MEDIUM'
+          ? '#ffd600'
+          : '#00c853';
+
+      doc
+        .fillColor(color)
+        .fontSize(11)
+        .text(`${index + 1}. ${v.name} [${v.severity}] (${v.cwe_id})`);
+      doc
+        .fillColor('#333333')
+        .fontSize(9)
+        .text(`Description: ${v.description}`);
+      doc
+        .fillColor('#008000')
+        .fontSize(9)
+        .text(`Fix: ${v.recommendation}`);
+      doc.moveDown(1);
+    });
+  }
+
+  doc.end();
+};
+
+module.exports = {
+  generateReport,
+  generateMarkdownReport,
+  buildPDFReportStream,
+};
