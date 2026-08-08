@@ -20,7 +20,7 @@
 | Name | Student ID |
 |------|-----------|
 | Sadia Islam Jhumur | 11230121171 | 
-| Sakil Hasan Saikot | 11230121188 | 
+| Sakil Hasan Saikat | 11230121188 | 
 | Tanjilanta Kanchi | 11220321034 | 
 | Farin Islam Mim | 11230121061 | 
 
@@ -121,7 +121,22 @@ specific fix recommendations.
 - Sequelize ORM v6
 
 ## AI Services
-- Google Gemini API
+- Google Gemini API (gemini-1.5-flash) for code vulnerability analysis, auto-fix generation, and interactive chat
+- Local fallback AI engine (mockAI.service.js) with 12 vulnerability patterns and CWE classification
+
+## AI Features
+| Feature | Description |
+|---------|-------------|
+| AI Code Security Analysis | Detects 12 types of security vulnerabilities (SQLi, XSS, CWE-798, etc.) using Gemini 1.5 Flash with automatic fallback |
+| AI Vulnerability Auto-Fix | Generates refactored secure code snippets with explanations and prevention best practices |
+| AI Security Assistant Chat | Interactive chatbot answering developer questions about code security and CWE standards |
+
+## AI Response Handling
+- Graceful fallback to local mock AI engine when Gemini API is unavailable
+- Schema validation for all JSON responses
+- Markdown stripping and response sanitization
+- Error handling for rate limits, timeouts, and network failures
+- User-friendly error messages without stack traces
 
 ## Development Tools
 - Git
@@ -144,7 +159,7 @@ pluto-ai/
 ├── frontend/               ← React.js web application
 │   ├── src/
 │   │   ├── pages/          ← All page components
-│   │   ├── components/     ← Reusable UI components
+│   │   ├── components/     ← Reusable UI components (AIChatModal.jsx)
 │   │   └── api.js          ← Backend API service
 │   └── README.md
 ├── backend/                ← Node.js REST API
@@ -153,10 +168,14 @@ pluto-ai/
 │   │   ├── models/         ← Sequelize database models
 │   │   ├── routes/         ← API endpoint definitions
 │   │   ├── middleware/     ← Auth and validation middleware
-│   │   └── services/       ← Business logic and AI engine
+│   │   └── services/       ← Business logic and AI engine (ai.service.js, mockAI.service.js)
 │   └── README.md
 ├── database/               ← Database related files
-├── documentation/          ← Weekly reports and documents
+├── documentation/          ← Weekly reports and AI documentation
+│   ├── CSE4104-7C-T04_AIIntegrationReport.pdf
+│   ├── CSE4104-7C-T04_AIWorkflow.pdf
+│   └── CSE4104-7C-T04_AIDemoDocument.pdf
+├── screenshots/            ← AI feature screenshots
 ├── diagrams/               ← ER diagram, activity diagram, system design
 └── README.md
 ```
@@ -228,7 +247,7 @@ App opens at `http://localhost:5173/pluto-ai/`
 | Week 05 | UI/UX design | ✅ Done |
 | Week 06 | Backend development and database | ✅ Done |
 | Week 07 | Frontend development and integration | ✅ Done |
-| Week 08 | Testing and deployment | 🔄 Upcoming |
+| Week 08 | AI Integration & Intelligent Features | ✅ Done |
 
 ---
 
@@ -243,4 +262,3 @@ permission before scanning code you do not own.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
